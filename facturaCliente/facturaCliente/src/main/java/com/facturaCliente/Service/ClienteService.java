@@ -1,16 +1,17 @@
 package com.facturaCliente.Service;
 
-import com.facturaCliente.Controller.ClienteInput;
+import com.facturaCliente.Controller.ClienteDniNombreOutput;
 import com.facturaCliente.Domain.Cliente;
 import com.facturaCliente.Domain.Factura;
-import com.facturaCliente.Exception.ClientDoesntExistException;
-import com.facturaCliente.Exception.ClientExistsException;
-import com.facturaCliente.Exception.FacturaDoesntExistException;
-import com.facturaCliente.Exception.FacturaExistsException;
+import com.facturaCliente.Exception.*;
 import com.facturaCliente.Repository.ClienteRepository;
 import com.facturaCliente.Repository.FacturaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Service
@@ -21,7 +22,7 @@ public class ClienteService {
     @Autowired
     private FacturaRepository facturaRepository;
 
-    public void addCliente(ClienteInput clienteInput) throws ClientExistsException {
+    public void addCliente(Cliente clienteInput) throws ClientExistsException {
         if(clienteRepository.existsById(clienteInput.getDni()))
             throw new ClientExistsException("El cliente ya existe");
         Cliente cliente = new Cliente(clienteInput.getDni(),clienteInput.getNombre(),clienteInput.getPais(),clienteInput.isPremium(),clienteInput.getFechaNac());
@@ -43,4 +44,14 @@ public class ClienteService {
         facturaRepository.save(factura);
     }
 
+    public List<ClienteDniNombreOutput> listClienteByPremiumAndPais(Boolean premium, String pais) throws ClientDoesntExistException, InvalidFieldException {
+        List<Cliente> clientes = clienteRepository.findByPremiumAndPaisOrderByNombre(premium, pais);
+        List<ClienteDniNombreOutput> clienteDniNombreOutput = new ArrayList<>();
+        if(clientes.isEmpty()) throw new ClientDoesntExistException("No hay clientes");
+
+        for(Cliente item : clientes){
+            clienteDniNombreOutput.add(ClienteDniNombreOutput.getCliente(item));
+        }
+        return clienteDniNombreOutput;
+    }
 }

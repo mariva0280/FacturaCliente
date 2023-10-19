@@ -1,8 +1,6 @@
 package com.facturaCliente.Domain;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
@@ -58,19 +56,4 @@ public class Factura {
         this.clienteDni = clienteDni;
     }
 
-    public void setTotal(double total) {
-        this.total = total;
-    }
-
-    public void setMes(String mes) {
-        this.mes = mes;
-    }
-
-    public void setAnyo(int anyo) {
-        this.anyo = anyo;
-    }
-
-    public void setCodFra(int codFra) {
-        this.codFra = codFra;
-    }
 }

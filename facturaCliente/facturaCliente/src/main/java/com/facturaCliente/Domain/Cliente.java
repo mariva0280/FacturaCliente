@@ -1,10 +1,6 @@
 package com.facturaCliente.Domain;
 
-import org.apache.logging.log4j.spi.DefaultThreadContextStack;
-
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.util.Date;
 
@@ -19,12 +15,12 @@ public class Cliente {
     private String nombre;
     private String pais;
     private boolean premium;
-    private Date fechaNac;
+    private String fechaNac;
 
     public Cliente() {
     }
 
-    public Cliente(String dni, String nombre, String pais, boolean premium, Date fechaNac) {
+    public Cliente(String dni, String nombre, String pais, boolean premium, String fechaNac) {
         this.dni = dni;
         this.nombre = nombre;
         this.pais = pais;
@@ -48,7 +44,7 @@ public class Cliente {
         return premium;
     }
 
-    public Date getFechaNac() {
+    public String getFechaNac() {
         return fechaNac;
     }
 

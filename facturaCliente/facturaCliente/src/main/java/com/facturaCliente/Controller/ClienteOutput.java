@@ -10,9 +10,9 @@ public class ClienteOutput {
     private String nombre;
     private String pais;
     private boolean premium;
-    private Date fechaNac;
+    private String fechaNac;
 
-    public ClienteOutput(String dni, String nombre, String pais, boolean premium, Date fechaNac) throws InvalidFieldException {
+    public ClienteOutput(String dni, String nombre, String pais, boolean premium, String fechaNac) throws InvalidFieldException {
         if(dni.isEmpty()) throw new InvalidFieldException("El dni no puede estar vacio");
         if(dni == null) throw new InvalidFieldException("El dni no puede ser nulo");
         if(dni.trim().length() < 9) throw new InvalidFieldException("El dni no es correcto debe tener 9 caracteres");
@@ -48,7 +48,7 @@ public class ClienteOutput {
         return premium;
     }
 
-    public Date getFechaNac() {
+    public String getFechaNac() {
         return fechaNac;
     }
 }
