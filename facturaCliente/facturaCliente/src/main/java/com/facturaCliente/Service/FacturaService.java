@@ -41,7 +41,7 @@ public class FacturaService {
         }
         return facturaOutput;
     }
-    public List<FacturaCodTotalOutput> listFacturasCliente(String clienteDni) throws ClientDoesntExistException {
+    public List<FacturaCodTotalOutput> listFacturasCliente(String clienteDni) throws ClientDoesntExistException, InvalidFieldException {
         Cliente cliente = clienteRepository.findById(clienteDni).orElse(null);
         if(cliente == null) {
             throw new ClientDoesntExistException("El cliente con dni " + clienteDni + " no existe");

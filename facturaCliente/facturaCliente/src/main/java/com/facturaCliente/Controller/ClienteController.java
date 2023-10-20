@@ -1,14 +1,13 @@
 package com.facturaCliente.Controller;
 
 import com.facturaCliente.Domain.Cliente;
-import com.facturaCliente.Domain.Factura;
 import com.facturaCliente.Exception.*;
 import com.facturaCliente.Service.ClienteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.format.annotation.DateTimeFormat;
+
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -46,7 +45,7 @@ public class ClienteController {
         } catch (FacturaDoesntExistException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         } catch (FacturaExistsException e) {
-            return ResponseEntity.status(HttpStatus.PRECONDITION_FAILED).build();
+            return ResponseEntity.status(HttpStatus.IM_USED).build();
         }
     }
     @GetMapping("clientes")

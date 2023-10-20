@@ -6,7 +6,6 @@ import javax.persistence.Id;
 @Entity
 
 public class Factura {
-
     @Id
     private int codFra;
     private double total;

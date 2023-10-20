@@ -1,7 +1,6 @@
 package com.facturaCliente.Controller;
 
 import com.facturaCliente.Domain.Factura;
-import com.facturaCliente.Exception.FacturaDoesntExistException;
 import com.facturaCliente.Exception.InvalidFieldException;
 
 public class FacturaOutput {
@@ -10,8 +9,8 @@ public class FacturaOutput {
     private String mes;
     private int anyo;
 
-    public FacturaOutput(int codFra, double total, String mes, int anyo) throws InvalidFieldException, FacturaDoesntExistException {
-        if(codFra == 0) throw new FacturaDoesntExistException("El codigo de la factura no puede ser nulo");
+    public FacturaOutput(int codFra, double total, String mes, int anyo) throws InvalidFieldException {
+        if(codFra == 0) throw new InvalidFieldException("El codigo de la factura no puede ser nulo");
         this.codFra = codFra;
         if(total < 1) throw new InvalidFieldException("El total de la factura no puede ser negativo");
         this.total = total;
@@ -21,7 +20,7 @@ public class FacturaOutput {
         if(anyo== 0) throw new InvalidFieldException("El año no puede ser nulo");
         this.anyo = anyo;
     }
-    public static FacturaOutput getFactura(Factura factura) throws InvalidFieldException, FacturaDoesntExistException {
+    public static FacturaOutput getFactura(Factura factura) throws InvalidFieldException {
         return new FacturaOutput(factura.getCodFra(), factura.getTotal(), factura.getMes(), factura.getAnyo());
     }
 

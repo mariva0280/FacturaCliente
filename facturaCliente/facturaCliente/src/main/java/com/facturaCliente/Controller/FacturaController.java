@@ -46,16 +46,21 @@ public class FacturaController {
             return ResponseEntity.ok(facturaCodTotalOutputs);
         }catch (ClientDoesntExistException e){
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        } catch (InvalidFieldException e) {
+            return ResponseEntity.status(HttpStatus.PRECONDITION_FAILED).build();
         }
     }
     @GetMapping("/facturas/{anyo}/{mes}")
     public ResponseEntity<List<FacturaOutput>>listFacturasByAnyoAndMes(@PathVariable int anyo, @PathVariable String mes){
         try{
             List<FacturaOutput>facturaOutputs = facturaService.listFacturaByAnyoAndMes(anyo, mes);
-            return ResponseEntity.ok(facturaOutputs);
+            if(facturaOutputs.isEmpty()){
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+            }else{
+                return ResponseEntity.ok(facturaOutputs);
+            }
         }catch (FacturaDoesntExistException | InvalidFieldException e){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
-
     }
 }

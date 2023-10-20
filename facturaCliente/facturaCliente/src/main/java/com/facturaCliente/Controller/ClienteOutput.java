@@ -3,7 +3,6 @@ package com.facturaCliente.Controller;
 import com.facturaCliente.Domain.Cliente;
 import com.facturaCliente.Exception.InvalidFieldException;
 
-import java.util.Date;
 
 public class ClienteOutput {
     private String dni;

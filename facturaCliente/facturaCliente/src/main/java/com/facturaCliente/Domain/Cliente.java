@@ -2,13 +2,10 @@ package com.facturaCliente.Domain;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import java.util.Date;
-
 
 @Entity
 
 public class Cliente {
-
     @Id
 
     private String dni;

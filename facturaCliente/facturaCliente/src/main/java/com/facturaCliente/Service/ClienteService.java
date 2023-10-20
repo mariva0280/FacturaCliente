@@ -31,7 +31,7 @@ public class ClienteService {
     public void addFacturaToCliente(int codFra,String dni) throws ClientDoesntExistException,FacturaDoesntExistException,FacturaExistsException{
         Cliente cliente = clienteRepository.findById(dni).orElse(null);
         if(cliente == null){
-            throw new ClientDoesntExistException("El cliente con dni " + dni + " no exisite");
+            throw new ClientDoesntExistException("El cliente con dni " + dni + " no existe");
         }
         Factura factura = facturaRepository.findById(codFra).orElse(null);
         if(factura == null){
