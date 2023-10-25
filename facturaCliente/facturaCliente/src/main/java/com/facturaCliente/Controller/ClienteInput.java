@@ -1,48 +1,37 @@
 package com.facturaCliente.Controller;
 
+import com.facturaCliente.Domain.Cliente;
 import com.facturaCliente.Exception.InvalidFieldException;
+import lombok.Data;
 
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
+import java.util.Date;
 
+@Data
 public class ClienteInput {
+    @NotNull(message = "The dni cannot be null")
+    @NotEmpty(message = "The dni cannot be empty")
     private String dni;
+    @NotNull(message = "The name cannot be null")
+    @NotEmpty(message = "The name cannot be empty")
     private String nombre;
+    @NotNull(message = "The country cannot be null")
+    @NotEmpty(message = "The country cannot be empty")
     private String pais;
     private boolean premium;
-    private String fechaNac;
+    @NotNull(message = "The date cannot be null")
+    private Date fechaNac;
 
-    public ClienteInput(String dni, String nombre, String pais, boolean premium, String fechaNac) throws InvalidFieldException {
-        if(dni.isEmpty()) throw new InvalidFieldException("El dni no puede estar vacio");
-        if(dni == null) throw new InvalidFieldException("El dni no puede ser nulo");
+    public ClienteInput(String dni, String nombre, String pais, boolean premium, Date fechaNac) throws InvalidFieldException {
         if(dni.trim().length() < 9) throw new InvalidFieldException("El dni no es correcto debe tener 9 caracteres");
         this.dni = dni;
-        if(nombre.isEmpty()) throw new InvalidFieldException("El nombre no puede estar vacío");
-        if(nombre == null) throw new InvalidFieldException("El nombre no puede ser nulo");
         this.nombre = nombre;
-        if(pais.isEmpty()) throw new InvalidFieldException("El pais no puede estar vacio");
-        if(pais == null) throw new InvalidFieldException("El pais no puede ser nulo");
         this.pais = pais;
         this.premium = premium;
-        if(fechaNac == null) throw new InvalidFieldException("La fecha de nacimiento no puede ser cero");
         this.fechaNac = fechaNac;
     }
 
-    public String getDni() {
-        return dni;
-    }
 
-    public String getNombre() {
-        return nombre;
-    }
-
-    public String getPais() {
-        return pais;
-    }
-
-    public boolean isPremium() {
-        return premium;
-    }
-
-    public String getFechaNac() {
-        return fechaNac;
-    }
 }

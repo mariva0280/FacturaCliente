@@ -28,7 +28,7 @@ public class ClienteService {
         Cliente cliente = new Cliente(clienteInput.getDni(),clienteInput.getNombre(),clienteInput.getPais(),clienteInput.isPremium(),clienteInput.getFechaNac());
         clienteRepository.save(cliente);
     }
-    public void addFacturaToCliente(int codFra,String dni) throws ClientDoesntExistException,FacturaDoesntExistException,FacturaExistsException{
+    public void addFacturaToCliente(int codFra,String dni) throws ClientDoesntExistException,FacturaDoesntExistException,FacturaAlreadyAssignedException{
         Cliente cliente = clienteRepository.findById(dni).orElse(null);
         if(cliente == null){
             throw new ClientDoesntExistException("El cliente con dni " + dni + " no existe");
@@ -38,7 +38,7 @@ public class ClienteService {
             throw new FacturaDoesntExistException("La factura con codigo " + codFra + " no existe");
         }
         if(factura.getClienteDni() != null){
-            throw new FacturaExistsException("La factura con codigo " + codFra + " ya está agregada al cliente");
+            throw new FacturaAlreadyAssignedException("La factura con codigo " + codFra + " ya está agregada al cliente");
         }
         factura.setClienteDni(dni);
         facturaRepository.save(factura);

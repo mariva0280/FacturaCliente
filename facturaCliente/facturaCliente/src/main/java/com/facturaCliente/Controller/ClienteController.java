@@ -9,9 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -22,17 +19,10 @@ public class ClienteController {
     @PostMapping("/clientes")
     public ResponseEntity<String>addClient(@RequestBody ClienteInput clienteInput){
         try{
-            //Convirtiendo la fecha del formato String a formato Date.
-            SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
-            Date fechaNac = dateFormat.parse(clienteInput.getFechaNac());
-            Cliente cliente = new Cliente(clienteInput.getDni(),clienteInput.getNombre(),clienteInput.getPais(),clienteInput.isPremium(),clienteInput.getFechaNac());
-
-            clienteService.addCliente(cliente);
+            clienteService.addCliente(Cliente.getCliente(clienteInput));
             return ResponseEntity.status(HttpStatus.CREATED).build();
         }catch (ClientExistsException e){
             return ResponseEntity.status(HttpStatus.IM_USED).build();
-        } catch (ParseException e) {
-            return ResponseEntity.status(HttpStatus.PRECONDITION_FAILED).build();
         }
     }
     @PostMapping("/clientes/{clienteDni}/facturas")
@@ -44,7 +34,7 @@ public class ClienteController {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         } catch (FacturaDoesntExistException e) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        } catch (FacturaExistsException e) {
+        } catch (FacturaAlreadyAssignedException e) {
             return ResponseEntity.status(HttpStatus.IM_USED).build();
         }
     }

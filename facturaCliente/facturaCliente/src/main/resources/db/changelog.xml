@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.0.xsd">
+
+    <changeSet id="1" author="mariva0280">
+        <sqlFile path="scripts/01-create-clientes.sql" relativeToChangelogFile="true" splitStatements="true" encoding="UTF-8"/>
+    </changeSet>
+    <changeSet id="2" author="mariva0280">
+        <sqlFile path="scripts/02-create-facturas.sql" relativeToChangelogFile="true" splitStatements="true" encoding="UTF-8"/>
+    </changeSet>
+    <changeSet id="3" author="mariva0280">
+        <sqlFile path="scripts/03-alter-table-clientes-name-notnull.sql" relativeToChangelogFile="true" splitStatements="true" encoding="UTF-8"/>
+    </changeSet>
+    <changeSet id="4" author="mariva0280">
+        <sqlFile path="scripts/04-alter-table-clientes-premium-default-false.sql" relativeToChangelogFile="true" splitStatements="true" encoding="UTF-8"/>
+    </changeSet>
+
+
+
+</databaseChangeLog>
